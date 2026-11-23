@@ -225,28 +225,6 @@
   "luma_url": null
  },
  {
-  "name": "IPPR",
-  "url": "https://ippr.org",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Long-running progressive think tank on economy, climate and public services.",
-  "tags": [
-   "economy",
-   "energy",
-   "think tank"
-  ],
-  "slug": "ippr",
-  "og": {
-   "title": "Home | IPPR",
-   "description": "\nThe Institute for Public Policy Research (IPPR) is an independent charity working towards a fairer, greener, and more prosperous society.",
-   "image": "https://images.ippr.org/production/Placeholders/placeholder-1.png?w=1573&h=982&q=100&auto=format&fit=crop&dm=1778241748&s=e70c531f29c3a729e42c2f864556ad7b",
-   "icon": "https://www.ippr.org/apple-touch-icon.png"
-  },
-  "img": "img/ippr.png",
-  "avatar": "img/ippr-icon.png",
-  "luma_url": null
- },
- {
   "name": "Progressive Britain",
   "url": "https://progressonline.org.uk",
   "lean": "left",
@@ -359,28 +337,6 @@
   "luma_url": "https://luma.com/sota-events"
  },
  {
-  "name": "Fabian Society",
-  "url": "https://fabians.org.uk",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Labour-affiliated society for left policy ideas, with local groups nationwide.",
-  "tags": [
-   "economy",
-   "think tank",
-   "runs events"
-  ],
-  "slug": "fabian-society",
-  "og": {
-   "title": "The future of the left since 1884 | Fabian Society",
-   "description": "Fabian Society",
-   "image": "https://fabians.org.uk/wp-content/themes/fabians/assets/images/og-img.png",
-   "icon": "https://fabians.org.uk/wp-content/themes/fabians/assets/images/apple-touch-icon.png"
-  },
-  "img": "img/fabian-society.png",
-  "avatar": "img/fabian-society-icon.png",
-  "luma_url": null
- },
- {
   "name": "Labour Growth Group",
   "url": "https://labourgrowth.co.uk",
   "lean": "left",
@@ -452,27 +408,6 @@
   "luma_url": "https://luma.com/cnl"
  },
  {
-  "name": "Labour Together",
-  "url": "https://labourtogether.uk",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Think tank close to the Labour leadership, working on how Labour wins and governs.",
-  "tags": [
-   "economy",
-   "think tank"
-  ],
-  "slug": "labour-together",
-  "og": {
-   "title": "ThinkLabour",
-   "description": "ThinkLabour is a think tank working at the heart of British politics to support the Labour movement with research, strategy, and policy development.",
-   "image": "https://cms.thinklabour.co.uk/assets/cf022c93-d260-45f5-8b2f-b044a70573b9.jpg?v=1778359225000&width=1200&quality=60&aspect_ratio=40:21",
-   "icon": "https://thinklabour.co.uk/fav/apple-touch-icon.png"
-  },
-  "img": "img/labour-together.jpg",
-  "avatar": null,
-  "luma_url": null
- },
- {
   "name": "Common Wealth",
   "url": "https://common-wealth.org",
   "lean": "left",
@@ -492,48 +427,6 @@
   },
   "img": "img/common-wealth.png",
   "avatar": "img/common-wealth-icon.png",
-  "luma_url": null
- },
- {
-  "name": "Renewal",
-  "url": "https://renewal.org.uk",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Quarterly journal of Labour's revisionist tradition: social democracy for a modern economy.",
-  "tags": [
-   "economy",
-   "publication"
-  ],
-  "slug": "renewal",
-  "og": {
-   "title": "Renewal",
-   "description": "A quarterly journal of politics and ideas, committed to exploring and expanding the radical potential of social democracy.",
-   "image": "https://storage.ghost.io/c/81/e6/81e6d867-0c40-41d1-b57e-1ff6b0bcc6b8/content/images/size/w1200/2025/05/Twitter-blue-sky-Meta-data-share-link-2-1.jpg",
-   "icon": "https://renewal.org.uk/assets/images/Renewal-favicon-16x16.png?v=Ej51JxNoTHXZptSx"
-  },
-  "img": "img/renewal.jpg",
-  "avatar": "img/renewal-icon.png",
-  "luma_url": null
- },
- {
-  "name": "Compass",
-  "url": "https://compassonline.org.uk",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Soft-left pressure group for a more equal, democratic and sustainable society.",
-  "tags": [
-   "economy",
-   "campaign"
-  ],
-  "slug": "compass",
-  "og": {
-   "title": "Compass - Compass",
-   "description": "Compass is the home for everyone who wants to be part of a much more equal, democratic and sustainable future.",
-   "image": "https://www.compassonline.org.uk/wp-content/uploads/2019/12/FB_Link_Share_Image.png",
-   "icon": "https://www.compassonline.org.uk/wp-content/themes/compass-2019/img/favicon.png"
-  },
-  "img": "img/compass.png",
-  "avatar": "img/compass-icon.png",
   "luma_url": null
  },
  {
@@ -601,27 +494,6 @@
   },
   "img": "img/institute-for-government.png",
   "avatar": "img/institute-for-government-icon.png",
-  "luma_url": null
- },
- {
-  "name": "Demos",
-  "url": "https://demos.co.uk",
-  "lean": "nonpartisan",
-  "group": "Ideas & policy",
-  "blurb": "Cross-party think tank on democracy, public services and the social contract.",
-  "tags": [
-   "state capacity",
-   "think tank"
-  ],
-  "slug": "demos",
-  "og": {
-   "title": "Demos",
-   "description": "Demos is Britain’s leading cross-party think-tank. We produce original research, publish innovative thinkers and host thought-provoking events.",
-   "image": "https://demos.co.uk/wp-content/themes/demos/assets/images/og-img.png",
-   "icon": "https://demos.co.uk/wp-content/themes/demos/assets/images/apple-touch-icon.png"
-  },
-  "img": "img/demos.png",
-  "avatar": "img/demos-icon.png",
   "luma_url": null
  },
  {
