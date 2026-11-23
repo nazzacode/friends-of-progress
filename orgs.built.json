@@ -225,28 +225,6 @@
   "luma_url": null
  },
  {
-  "name": "Progressive Britain",
-  "url": "https://progressonline.org.uk",
-  "lean": "left",
-  "group": "Ideas & policy",
-  "blurb": "Labour's centrist pressure group and policy network.",
-  "tags": [
-   "economy",
-   "think tank",
-   "runs events"
-  ],
-  "slug": "progressive-britain",
-  "og": {
-   "title": "Home - Progress",
-   "description": "Progress is the platform for policymaking, political education, and imaginative thinking to rebuild Labour and the Nation.",
-   "image": "https://www.progressonline.org.uk/wp-content/uploads/2026/01/progress-favicon.png",
-   "icon": "https://www.progressonline.org.uk/wp-content/uploads/2026/01/progress-favicon-225x225.png"
-  },
-  "img": "img/progressive-britain.png",
-  "avatar": "img/progressive-britain-icon.png",
-  "luma_url": null
- },
- {
   "name": "Adam Smith Institute",
   "url": "https://adamsmith.org",
   "lean": "right",
@@ -497,28 +475,6 @@
   "luma_url": null
  },
  {
-  "name": "Social Market Foundation",
-  "url": "https://smf.co.uk",
-  "lean": "nonpartisan",
-  "group": "Ideas & policy",
-  "blurb": "Cross-party think tank on markets that work for people: housing, energy, pensions.",
-  "tags": [
-   "economy",
-   "housing",
-   "think tank"
-  ],
-  "slug": "social-market-foundation",
-  "og": {
-   "title": "The Social Market Foundation | Britain’s Leading Cross-Party Think-Tank",
-   "description": "We bring together people of all parties and none, to develop evidence-based policies that support a fair society and a strong economy.",
-   "image": "https://www.smf.co.uk/wp-content/uploads/2020/05/smf-og-image.png",
-   "icon": "https://www.smf.co.uk/wp-content/uploads/2026/08/SMF-Fav.jpg"
-  },
-  "img": "img/social-market-foundation.png",
-  "avatar": "img/social-market-foundation-icon.jpg",
-  "luma_url": null
- },
- {
   "name": "Centre for London",
   "url": "https://centreforlondon.org",
   "lean": "nonpartisan",
@@ -539,24 +495,6 @@
   },
   "img": "img/centre-for-london.gif",
   "avatar": "img/centre-for-london-icon.png",
-  "luma_url": null
- },
- {
-  "name": "The London Society",
-  "url": "https://londonsociety.org.uk",
-  "lean": "nonpartisan",
-  "group": "Science & culture",
-  "blurb": "Civic society for the future shape of London: talks, walks and debates.",
-  "tags": [
-   "cities",
-   "culture",
-   "community",
-   "runs events"
-  ],
-  "slug": "the-london-society",
-  "og": {},
-  "img": "img/the-london-society.jpg",
-  "avatar": null,
   "luma_url": null
  },
  {
