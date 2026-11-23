@@ -128,8 +128,8 @@ def build(org):
     print("·", org["name"])
     slug, m = slugify(org["name"]), meta(org["url"])
     lu = luma(org["luma"]) if org.get("luma") else {}
-    on_luma = "luma.com/" in org["url"]  # Luma's own og:image is a generic share card → prefer the cover
-    heroes = (org.get("image"), lu.get("cover"), m.get("image")) if on_luma else (org.get("image"), m.get("image"), lu.get("cover"))
+    on_luma = "luma.com/" in org["url"]  # Luma's og:image is a generic share card → cover, then avatar
+    heroes = (org.get("image"), lu.get("cover"), lu.get("avatar")) if on_luma else (org.get("image"), m.get("image"), lu.get("cover"))
     hero = next(filter(None, (fetch_img(u, slug) for u in heroes if u)), None) \
         or screenshot(org["url"], slug)
     avatar = fetch_img(org.get("avatar") or lu.get("avatar") or m.get("icon"), slug + "-icon", "128x128")

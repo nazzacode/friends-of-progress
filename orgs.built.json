@@ -282,7 +282,12 @@
    "runs events"
   ],
   "slug": "adam-smith-institute",
-  "og": {},
+  "og": {
+   "title": "Adam Smith Institute | Free Market Think Tank",
+   "description": "The Adam Smith Institute is a leading global economic policy think tank, ranked the UK's top domestic and international economic policy institute and 2nd worldwide among Independent Think Tanks by the University of Pennsylvania.",
+   "image": "http://static1.squarespace.com/static/56eddde762cd9413e151ac92/t/5fcd780b978da30c561357a9/1607301135798/ASI-logo-social.png?format=1500w",
+   "icon": "https://images.squarespace-cdn.com/content/v1/56eddde762cd9413e151ac92/3b515a50-ebb6-442f-903c-f6a31f7bf6d3/favicon.ico"
+  },
   "img": "img/adam-smith-institute.png",
   "avatar": "img/adam-smith-institute-icon.png",
   "luma_url": "https://luma.com/adamsmithinstituteevents"
@@ -746,7 +751,7 @@
    "image": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1200,height=630/calendar?calendar_avatar_url=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Fcommunity_avatar_2.png&calendar_geo_city=London&calendar_name=TxP&calendar_tint_color=%23131517",
    "icon": "https://luma.com/apple-touch-icon.png"
   },
-  "img": "img/txp.jpg",
+  "img": "img/txp.png",
   "avatar": "img/txp-icon.png",
   "luma_url": "https://luma.com/txp_io"
  },
