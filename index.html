@@ -1,0 +1,300 @@
+<meta charset="utf-8">
+<title>Friends of Progress</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column of header + controls, then an auto-fill card grid. Colour from Turner's Rain, Steam and Speed: smoke greys, one ochre accent. */
+:root {
+  --bg: #f5f5f2; --surface: #ffffff; --fg: #1b1d1f; --muted: #686b6e; --line: #e2e2dc;
+  --accent: #a8742a; --accent-soft: #f1e6d3; --chip: #ecece7;
+  --left: #c4513f; --right: #3c6db0; --neutral: #8e9296;
+  --display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141516; --surface: #1c1e20; --fg: #ebeae6; --muted: #9a9c9e; --line: #2c2e31;
+  --accent: #d9a656; --accent-soft: #33291b; --chip: #26282b;
+  --left: #e07a68; --right: #7aa3e0; --neutral: #8e9296; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141516; --surface: #1c1e20; --fg: #ebeae6; --muted: #9a9c9e; --line: #2c2e31;
+  --accent: #d9a656; --accent-soft: #33291b; --chip: #26282b;
+  --left: #e07a68; --right: #7aa3e0; --neutral: #8e9296; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 64px }
+.wrap { max-width: 1180px; margin: 0 auto }
+header { padding-block: 56px 28px; display: grid; gap: 14px; max-width: 46rem }
+.eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600 }
+.eyebrow a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor }
+h1 { font: 400 clamp(36px, 6vw, 58px)/1.02 var(--display); margin: 0; letter-spacing: -.015em; text-wrap: balance }
+h1 em { color: var(--accent) }
+.lede { margin: 0; color: var(--muted); font-size: 17px; max-width: 38rem; text-wrap: pretty }
+
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+.search { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; padding: 0 16px; height: 46px }
+.search:focus-within { border-color: var(--accent) }
+.search svg { flex: none; color: var(--muted) }
+#q { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--fg); outline: none }
+.count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap }
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center }
+.bar .search { flex: 1 1 300px; height: 42px }
+.tools { display: flex; gap: 8px; align-items: center }
+#sort { height: 34px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg);
+  font: 500 13px/1 var(--body); padding: 0 10px; cursor: pointer }
+#sort:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.filters { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center }
+.group { display: flex; flex-wrap: wrap; gap: 5px; align-items: center }
+.filters .tag { background: transparent; border-color: var(--line); color: var(--muted) }
+.filters .tag:hover { color: var(--fg); border-color: var(--muted) }
+.filters .tag[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg) }
+.group-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 2px }
+.tag { font: 500 12.5px/1 var(--body); padding: 6px 10px; border-radius: 999px; border: 1px solid transparent;
+  background: var(--chip); color: var(--fg); cursor: pointer; display: inline-flex; gap: 6px; align-items: center }
+.tag:hover { border-color: var(--line) }
+.tag[aria-pressed="true"] { background: var(--fg); color: var(--bg) }
+.tag:focus-visible, .card a:focus-visible, #q:focus-visible, .clear:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neutral) }
+.dot.left { background: var(--left) } .dot.right { background: var(--right) }
+.clear { font: inherit; font-size: 12.5px; background: none; border: 0; color: var(--accent); cursor: pointer; padding: 6px 2px }
+
+.grid { --card: 300px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--card)), 1fr)); gap: 28px 22px; padding-block: 28px }
+
+/* toolbar: view toggle + size slider */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between }
+.view { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--surface) }
+.view button { border: 0; background: transparent; color: var(--muted); width: 32px; height: 28px; border-radius: 999px; cursor: pointer; display: grid; place-items: center }
+.view button[aria-pressed="true"] { background: var(--fg); color: var(--bg) }
+.view button:focus-visible, #size:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.size { display: inline-flex; gap: 6px; align-items: center; color: var(--muted) }
+#size { width: 96px; accent-color: var(--accent) }
+.contact { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center }
+.email { color: var(--fg); user-select: all; font-weight: 500 }
+.copy { font: 500 12px/1 var(--body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 5px 9px; cursor: pointer }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+
+.card { display: flex; flex-direction: column; min-width: 0; position: relative }
+.figure { position: relative }
+.hero { aspect-ratio: 1.91 / 1; max-width: 100%; border-radius: var(--r); overflow: hidden; background: var(--chip);
+  border: 1px solid var(--line); transition: transform .25s ease, box-shadow .25s ease }
+.hero img { width: 100%; height: 100%; object-fit: cover; display: block }
+.hero.contain, .thumb.contain { background: #fff } .hero.contain img { object-fit: contain; padding: 8% }
+/* Luma-style: rounded-square avatar overlapping the cover */
+.avatar { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; background: var(--surface); flex: none;
+  border: 3px solid var(--bg); box-shadow: 0 1px 4px rgb(0 0 0 / .15) }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block }
+.figure .avatar { position: absolute; left: 14px; bottom: -22px; z-index: 2; transition: transform .25s ease }
+.card:hover .hero, .card:hover .figure .avatar, .card:hover .lean { transform: translateY(-3px) }
+.card:hover .hero { box-shadow: 0 10px 24px -14px rgb(0 0 0 / .35) }
+.lean { position: absolute; top: 10px; left: 10px; z-index: 2; font-size: 11.5px; font-weight: 600; padding: 5px 9px;
+  background: var(--surface); color: var(--fg); border-color: var(--line); box-shadow: 0 1px 3px rgb(0 0 0 / .12); text-transform: capitalize; transition: transform .25s ease }
+.meta { display: grid; gap: 6px; padding-top: 30px }
+.card h2 { font: 500 21px/1.2 var(--display); margin: 0 }
+.card h2 a, .row h2 a { color: inherit; text-decoration: none }
+.card h2 a::after, .row h2 a::after { content: ""; position: absolute; inset: 0 }
+.links { display: flex; gap: 6px 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); position: relative; z-index: 1; min-width: 0 }
+.links a { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.links a:hover { color: var(--fg) }
+.links a.luma { color: var(--accent); font-weight: 500 }
+.card p { margin: 0; color: var(--muted); font-size: 14.5px; text-wrap: pretty }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 4px; position: relative; z-index: 1 }
+.tags .tag { font-size: 11.5px; padding: 4px 8px }
+.section-head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; padding-top: 18px; margin-bottom: -8px }
+.section-head h3 { font: italic 400 24px/1.1 var(--display); margin: 0 }
+.section-head span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums }
+.rows .section-head { padding-block: 26px 6px; margin: 0; border-bottom: 1px solid var(--fg) }
+.rows .section-head:first-child, .grid .section-head:first-child { padding-top: 0 }
+
+/* list view; --thumb set from the size slider */
+.rows { display: grid; padding-block: 24px 28px; --thumb: 96px }
+.row { display: grid; grid-template-columns: var(--thumb) minmax(0, 1fr) minmax(0, 1.8fr) minmax(0, 1.25fr); gap: 18px; align-items: center;
+  padding-block: 12px; border-bottom: 1px solid var(--line); position: relative }
+.row:hover { background: linear-gradient(90deg, transparent, var(--chip) 8%, var(--chip) 92%, transparent) }
+.thumb { aspect-ratio: 1.91 / 1; border-radius: 6px; overflow: hidden; background: var(--chip); border: 1px solid var(--line) }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block }
+.thumb.contain img { object-fit: contain; padding: 6% }
+.row .avatar { display: none }
+.row h2 { font: 500 17px/1.25 var(--display); margin: 0 }
+.row p { margin: 0; color: var(--muted); font-size: 14px; text-wrap: pretty }
+.row .tags { justify-content: flex-end; padding: 0 }
+.row .tags .tag { font-size: 11px; padding: 4px 8px }
+.tag.lean-inline { font-weight: 600; text-transform: capitalize; background: var(--surface); border-color: var(--line) }
+/* dense: one line per org, avatar instead of preview */
+.rows.dense .row { grid-template-columns: 26px minmax(0, 1fr) minmax(0, 2.2fr) 110px; gap: 14px; padding-block: 7px }
+.rows.dense .thumb, .rows.dense .links { display: none }
+.rows.dense .avatar { display: block; width: 26px; height: 26px; border-radius: 7px; border-width: 1px; border-color: var(--line); box-shadow: none }
+.rows.dense h2 { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.rows.dense p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13.5px }
+.rows.dense .tags { flex-wrap: nowrap }
+.rows.dense .tags .tag:not(.lean-inline) { display: none }
+@media (max-width: 820px) {
+  .row { grid-template-columns: min(var(--thumb), 120px) minmax(0, 1fr); gap: 4px 14px; align-items: start }
+  .row .thumb { grid-row: span 3 }
+  .row .tags { justify-content: flex-start; padding-top: 4px }
+  .rows.dense .row { grid-template-columns: 26px minmax(0, 1fr) auto; align-items: center }
+  .rows.dense p { display: none }
+}
+.empty { padding: 60px 0; color: var(--muted); text-align: center; grid-column: 1 / -1 }
+footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between }
+footer a { color: var(--fg) }
+@media (prefers-reduced-motion: reduce) { .hero, .lean, .figure .avatar { transition: none } .card:hover .hero, .card:hover .lean, .card:hover .figure .avatar { transform: none } }
+@media (max-width: 560px) { header { padding-block: 32px 18px } .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none } .group { flex-wrap: nowrap } .tag { white-space: nowrap } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Companion to <a href="https://luma.com/progressevents">Progress Events</a></div>
+    <h1>Friends of <em>Progress</em></h1>
+    <p class="lede">The UK organisations building the case for growth, housing, energy, science and a state that delivers. Left, right and neither. Many run the events on the calendar.</p>
+  </header>
+
+  <div class="controls">
+    <div class="bar">
+      <label class="search" for="q">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search housing, nuclear, Labour…" autocomplete="off" aria-label="Search organisations">
+        <span class="count" id="count"></span>
+      </label>
+      <div class="tools">
+        <div class="view" role="group" aria-label="Layout">
+          <button type="button" data-view="cards" title="Cards" aria-label="Cards"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg></button>
+          <button type="button" data-view="list" title="List" aria-label="List"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="2" width="14" height="2.5" rx="1"/><rect x="1" y="6.75" width="14" height="2.5" rx="1"/><rect x="1" y="11.5" width="14" height="2.5" rx="1"/></svg></button>
+        </div>
+        <select id="sort" aria-label="Order">
+          <option value="group">Grouped</option>
+          <option value="az">A–Z</option>
+          <option value="lean">By lean</option>
+        </select>
+        <label class="size" for="size" title="Size">
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="currentColor"/></svg>
+          <input id="size" type="range" min="0" max="100" step="5" value="40" aria-label="Size">
+          <svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="currentColor"/></svg>
+        </label>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <span>Images and links belong to each organisation. Descriptions are our own.</span>
+    <span class="contact">Missing an org? Email <span class="email" id="email">nathansharp03@gmail.com</span> <button type="button" class="copy" id="copy">Copy</button></span>
+  </footer>
+</div>
+
+<script>
+const ORGS = [{"name": "Looking for Growth", "url": "https://lookingforgrowth.uk", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-RrzxAKUyNdOjqXi", "blurb": "Grassroots movement pushing every party to make growth the national mission, with chapters and meetups across the country.", "tags": ["economy", "campaign", "runs events"], "slug": "looking-for-growth", "og": {"title": "Looking For Growth", "description": "End decline. Save Britain", "image": "https://lookingforgrowth.uk/og-image.png", "icon": "https://lfg-site-content.s3.eu-west-2.amazonaws.com/lfg+favicon.png"}, "img": "img/looking-for-growth.png", "avatar": "img/looking-for-growth-icon.jpg", "luma_url": "https://luma.com/lookingforgrowth"}, {"name": "Centre for British Progress", "url": "https://britishprogress.org", "lean": "nonpartisan", "group": "Ideas & policy", "luma": "cal-EgC5GglwjXxbf3D", "blurb": "Think tank on science, technology and building as the route to a richer Britain.", "tags": ["science", "economy", "think tank", "runs events"], "slug": "centre-for-british-progress", "og": {"title": "Centre for British Progress", "description": "The Centre for British Progress is a non-partisan think tank researching and producing concrete ideas for an era of British growth and progress.", "image": null, "icon": "https://britishprogress.org/apple-touch-icon.png"}, "img": "img/centre-for-british-progress.jpg", "avatar": "img/centre-for-british-progress-icon.png", "luma_url": "https://luma.com/britishprogress"}, {"name": "Works in Progress", "url": "https://worksinprogress.co", "lean": "nonpartisan", "group": "Science & culture", "blurb": "Magazine of new and underrated ideas for improving the world, from housing to biotech.", "tags": ["science", "housing", "publication", "runs events"], "slug": "works-in-progress", "og": {"title": "Works in Progress Magazine", "description": "A magazine dedicated to new and underrated ideas to improve the world, featuring original writing from the world's most interesting thinkers.", "image": "https://worksinprogress.co/wip-image/uploads/2022/12/WIP_Banner-1024x549-1.jpeg", "icon": "https://worksinprogress.co/apple-touch-icon.png"}, "img": "img/works-in-progress.jpg", "avatar": "img/works-in-progress-icon.png", "luma_url": null}, {"name": "Britain Remade", "url": "https://britainremade.co.uk", "lean": "nonpartisan", "group": "Movements & community", "blurb": "Campaign to make it faster and cheaper to build homes, energy, transport and labs.", "tags": ["housing", "energy", "infrastructure", "campaign"], "slug": "britain-remade", "og": {"title": "Britain Remade", "description": "Britain Remade is a campaign to grow Britain's economy by building the clean power, homes and transport that we need.", "image": "https://assets.nationbuilder.com/britainremade/sites/7/meta_images/original/BRITAIN_REMADE_LOGOS_1022_RGB-Colour.png?1694441941", "icon": "https://assets.nationbuilder.com/britainremade/sites/7/favicon_images/original/favicon.png?1672924509"}, "img": "img/britain-remade.jpg", "avatar": "img/britain-remade-icon.png", "luma_url": null}, {"name": "ARIA", "url": "https://aria.org.uk", "lean": "nonpartisan", "group": "Science & culture", "blurb": "The government's high-risk research agency, funding moonshot science programmes.", "tags": ["science", "funder"], "slug": "aria", "og": {"title": "Home", "description": "Advanced Research + Invention Agency (ARIA) is an R&D funding agency built to unlock scientific and technological breakthroughs that benefit everyone.", "image": "https://aria.org.uk/media/y5dpm50c/aria-home.jpg?width=600&format=webp&quality=100&v=1dd1b5e015052e0", "icon": "https://aria.org.uk/nuxtassets/favicons/apple-touch-icon.png"}, "img": "img/aria.webp", "avatar": "img/aria-icon.png", "luma_url": null}, {"name": "Land Talks", "url": "https://landtalks.org", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-2iEBWoFAv8aoFKy", "blurb": "Talks and socials on land, housing and Georgist economics.", "tags": ["housing", "economy", "community", "runs events"], "slug": "land-talks", "og": {"title": "Land Talks - Reimagining Land for a More Abundant Britain", "description": "Evenings of sharp, provocative talks to inspire and connect high-agency people to reimagine land for a more abundant Britain.", "image": "https://landtalks.org/images/season-2.jpg", "icon": "https://landtalks.org/images/icon.png"}, "img": "img/land-talks.jpg", "avatar": "img/land-talks-icon.jpg", "luma_url": "https://luma.com/landtalks"}, {"name": "London YIMBY", "url": "https://londonyimby.org", "lean": "nonpartisan", "group": "Movements & community", "blurb": "Volunteers making the case for more homes in London, street by street.", "tags": ["housing", "cities", "campaign"], "slug": "london-yimby", "og": {"title": "London YIMBY", "description": "Grassroots campaign to end the housing crisis with the support of local people", "image": null, "icon": "https://images.squarespace-cdn.com/content/v1/583efdfd03596e5fc7f6ee71/1480617161797-U02XRPL5X7KTOJ0SNNAM/favicon.ico?format=50w"}, "img": "img/london-yimby.jpg", "avatar": "img/london-yimby-icon.ico", "luma_url": null}, {"name": "Centre for Cities", "url": "https://centreforcities.org", "lean": "nonpartisan", "group": "Ideas & policy", "blurb": "Research on how UK cities and towns can grow, with data on every major urban area.", "tags": ["cities", "economy", "think tank"], "slug": "centre-for-cities", "og": {"title": "Centre for Cities - Think tank dedicated to UK city economies", "description": "Independent, non-partisan think tank dedicated to understanding and improving the economies of the UK's largest cities and towns.", "image": "https://www.centreforcities.org/wp-content/uploads/2019/01/default-share-image.gif", "icon": "https://www.centreforcities.org/wp-content/uploads/2026/04/favicon.png"}, "img": "img/centre-for-cities.gif", "avatar": "img/centre-for-cities-icon.png", "luma_url": null}, {"name": "Create Streets", "url": "https://createstreets.com", "lean": "right", "group": "Movements & community", "blurb": "Research and design practice for beautiful, popular, gentle-density streets.", "tags": ["housing", "cities", "think tank"], "slug": "create-streets", "og": {"title": "Create Streets Ltd | Design practice, town-builder and think tank.", "description": "Create Streets is a design practice, town-builder and think tank. We lead research, master-planning, design coding and community co-design to help develop and steward beautiful and popular ‘gentle density’ places which residents and neighbours can love for generations.", "image": "https://www.createstreets.com/wp-content/uploads/2017/09/favicon-2.jpg", "icon": "https://www.createstreets.com/wp-content/uploads/2017/09/cropped-cslogo-vector-small-2-180x180.jpg"}, "img": "img/create-streets.jpg", "avatar": "img/create-streets-icon.jpg", "luma_url": null}, {"name": "Resolution Foundation", "url": "https://resolutionfoundation.org", "lean": "left", "group": "Ideas & policy", "blurb": "Research on living standards for people on low and middle incomes.", "tags": ["economy", "think tank"], "slug": "resolution-foundation", "og": {"title": "Resolution Foundation • Analysis and action on living standards", "description": "The Resolution Foundation is an independent think-tank focused on improving the living standards for those on low to middle incomes.", "image": "https://www.resolutionfoundation.org/app/uploads/2019/09/RFLogos_FullColour.png", "icon": "https://www.resolutionfoundation.org/app/uploads/2021/11/cropped-sqaurelogo-e1637062961559-180x180.png"}, "img": "img/resolution-foundation.png", "avatar": "img/resolution-foundation-icon.png", "luma_url": null}, {"name": "IPPR", "url": "https://ippr.org", "lean": "left", "group": "Ideas & policy", "blurb": "Long-running progressive think tank on economy, climate and public services.", "tags": ["economy", "energy", "think tank"], "slug": "ippr", "og": {"title": "Home | IPPR", "description": "\nThe Institute for Public Policy Research (IPPR) is an independent charity working towards a fairer, greener, and more prosperous society.", "image": "https://images.ippr.org/production/Placeholders/placeholder-1.png?w=1573&h=982&q=100&auto=format&fit=crop&dm=1778241748&s=e70c531f29c3a729e42c2f864556ad7b", "icon": "https://www.ippr.org/apple-touch-icon.png"}, "img": "img/ippr.png", "avatar": "img/ippr-icon.png", "luma_url": null}, {"name": "Progressive Britain", "url": "https://progressonline.org.uk", "lean": "left", "group": "Ideas & policy", "blurb": "Labour's centrist pressure group and policy network.", "tags": ["economy", "think tank", "runs events"], "slug": "progressive-britain", "og": {"title": "Home - Progress", "description": "Progress is the platform for policymaking, political education, and imaginative thinking to rebuild Labour and the Nation.", "image": "https://www.progressonline.org.uk/wp-content/uploads/2026/01/progress-favicon.png", "icon": "https://www.progressonline.org.uk/wp-content/uploads/2026/01/progress-favicon-225x225.png"}, "img": "img/progressive-britain.png", "avatar": "img/progressive-britain-icon.png", "luma_url": null}, {"name": "Adam Smith Institute", "url": "https://adamsmith.org", "lean": "right", "group": "Ideas & policy", "luma": "cal-oOcEhpitmO6aEhC", "blurb": "Free-market think tank, long an advocate of planning reform and YIMBYism.", "tags": ["housing", "economy", "think tank", "runs events"], "slug": "adam-smith-institute", "og": {}, "img": "img/adam-smith-institute.png", "avatar": "img/adam-smith-institute-icon.png", "luma_url": "https://luma.com/adamsmithinstituteevents"}, {"name": "Onward", "url": "https://ukonward.com", "lean": "right", "group": "Ideas & policy", "blurb": "Centre-right think tank on community, the economy and regional growth.", "tags": ["economy", "think tank"], "slug": "onward", "og": {"title": "The UK’s leading centre-right think tank | Onward", "description": "Onward leads the charge as the UK’s leading centre-right think tank, championing pragmatic, evidence-led compassionate conservatism.", "image": "https://ukonward.com/wp-content/uploads/2025/05/img-page-header-06.jpg", "icon": "https://ukonward.com/wp-content/uploads/2025/05/apple-touch-icon-512x512-1-250x250.png"}, "img": "img/onward.jpg", "avatar": "img/onward-icon.png", "luma_url": null}, {"name": "Anglofuturism", "url": "https://anglofuturism.co", "lean": "nonpartisan", "group": "Science & culture", "blurb": "Newsletter and podcast imagining an ambitious, building, high-tech England.", "tags": ["culture", "publication", "community"], "slug": "anglofuturism", "og": {"title": "Anglofuturism | Substack", "description": "For the people building Britain's future. Click to read Anglofuturism, a Substack publication.", "image": "https://substackcdn.com/image/fetch/$s_!qEM3!,w_400,h_400,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0a3ecd23-ff92-4793-8df5-2ca240ed56dc_1280x1280.png", "icon": "https://substackcdn.com/image/fetch/$s_!WZPk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5bc0c29a-3a7c-4d18-8149-001bbf8a9bb5%2Fapple-touch-icon-57x57.png"}, "img": "img/anglofuturism.jpg", "avatar": "img/anglofuturism-icon.jpg", "luma_url": null}, {"name": "SoTA", "url": "https://ilikethefuture.com", "lean": "nonpartisan", "group": "Science & culture", "luma": "cal-hc4YzSVVoO1qpxP", "blurb": "Society for Technological Advancement: evenings for people optimistic about science and engineering.", "tags": ["science", "community", "runs events"], "slug": "sota", "og": {"title": "SoTA", "description": "", "image": null, "icon": "https://ilikethefuture.com/favicon.png"}, "img": "img/sota.jpg", "avatar": "img/sota-icon.png", "luma_url": "https://luma.com/sota-events"}, {"name": "Fabian Society", "url": "https://fabians.org.uk", "lean": "left", "group": "Ideas & policy", "blurb": "Labour-affiliated society for left policy ideas, with local groups nationwide.", "tags": ["economy", "think tank", "runs events"], "slug": "fabian-society", "og": {"title": "The future of the left since 1884 | Fabian Society", "description": "Fabian Society", "image": "https://fabians.org.uk/wp-content/themes/fabians/assets/images/og-img.png", "icon": "https://fabians.org.uk/wp-content/themes/fabians/assets/images/apple-touch-icon.png"}, "img": "img/fabian-society.png", "avatar": "img/fabian-society-icon.png", "luma_url": null}, {"name": "Labour Growth Group", "url": "https://labourgrowth.co.uk", "lean": "left", "group": "Ideas & policy", "luma": "cal-yBL4gFqKp8Tsmcs", "blurb": "Caucus of Labour MPs pushing for faster economic growth.", "tags": ["economy", "campaign"], "fit": "contain", "slug": "labour-growth-group", "og": {"title": "Labour Growth Group", "description": "", "image": "http://static1.squarespace.com/static/66fd9818a5894458fff7a30e/t/6708e5147cde3a677b8961bc/1728636180557/Horizontal_white.jpg?format=1500w", "icon": "https://images.squarespace-cdn.com/content/v1/66fd9818a5894458fff7a30e/468af464-e9cf-4ab8-a2b5-7d11d071ae1f/favicon.ico?format=100w"}, "img": "img/labour-growth-group.jpg", "avatar": "img/labour-growth-group-icon.png", "luma_url": null}, {"name": "CDOT Future", "url": "https://www.cdotfuture.org", "lean": "nonpartisan", "group": "Science & culture", "blurb": "James Kingston's campaign to make the Crown Dependencies and Overseas Territories test beds for new tech and regulation.", "tags": ["science", "economy", "campaign"], "slug": "cdot-future", "og": {"title": "CDOT Future", "description": "Agile jurisdictions for emerging technologies", "image": null, "icon": "https://images.squarespace-cdn.com/content/v1/67e823120eadc40f19b9802b/8a8d1cbc-5544-4dda-8341-3566599dd52e/favicon.ico?format=100w"}, "img": "img/cdot-future.jpg", "avatar": "img/cdot-future-icon.png", "luma_url": null}, {"name": "London New Liberals", "url": "https://x.com/LondonNewLibs", "lean": "nonpartisan", "group": "Movements & community", "blurb": "London chapter of the Center for New Liberalism: monthly pub socials and talks for pro-market, pro-housing liberals.", "tags": ["housing", "economy", "community", "runs events"], "image": "https://static1.squarespace.com/static/62ba153710aa8d1ca9881ae3/t/63e6b1fc94cb644876540b77/1676063228971/CNL+Square.png?format=1500w", "fit": "contain", "avatar": "img/london-new-liberals-icon.png", "luma": "cal-IJ3fnuoMNVsqmZD", "slug": "london-new-liberals", "og": {"title": "London New Liberals (@LondonNewLibs) on X", "description": "The only real liberals in British politics.\n\n| DM to join London's best YIMBY WhatsApp\n| 🇬🇧 Sovereign of @CNLiberalism", "image": "https://pbs.twimg.com/profile_images/2112818068875350016/UXT3eWeY_400x400.jpg", "icon": "https://abs.twimg.com/responsive-web/client-web/icon-ios.77d25eba.png"}, "img": "img/london-new-liberals.png", "luma_url": "https://luma.com/cnl"}, {"name": "Labour Together", "url": "https://labourtogether.uk", "lean": "left", "group": "Ideas & policy", "blurb": "Think tank close to the Labour leadership, working on how Labour wins and governs.", "tags": ["economy", "think tank"], "slug": "labour-together", "og": {"title": "ThinkLabour", "description": "ThinkLabour is a think tank working at the heart of British politics to support the Labour movement with research, strategy, and policy development.", "image": "https://cms.thinklabour.co.uk/assets/cf022c93-d260-45f5-8b2f-b044a70573b9.jpg?v=1778359225000&width=1200&quality=60&aspect_ratio=40:21", "icon": "https://thinklabour.co.uk/fav/apple-touch-icon.png"}, "img": "img/labour-together.jpg", "avatar": null, "luma_url": null}, {"name": "Common Wealth", "url": "https://common-wealth.org", "lean": "left", "group": "Ideas & policy", "blurb": "Left think tank on public ownership, green industry and democratic economics.", "tags": ["energy", "economy", "think tank"], "slug": "common-wealth", "og": {"title": "Common Wealth — Ownership matters.", "description": "We are a think tank reimagining ownership to build an economy that works for everyone.", "image": "https://cdn.prod.website-files.com/6230685a281e800745998189/686e367cb9d3adaa1e704b61_Home.png", "icon": "https://cdn.prod.website-files.com/6230685a281e800745998189/63c532091c2178ceced9d0f7_webclip-02.png"}, "img": "img/common-wealth.png", "avatar": "img/common-wealth-icon.png", "luma_url": null}, {"name": "Renewal", "url": "https://renewal.org.uk", "lean": "left", "group": "Ideas & policy", "blurb": "Quarterly journal of Labour's revisionist tradition: social democracy for a modern economy.", "tags": ["economy", "publication"], "slug": "renewal", "og": {"title": "Renewal", "description": "A quarterly journal of politics and ideas, committed to exploring and expanding the radical potential of social democracy.", "image": "https://storage.ghost.io/c/81/e6/81e6d867-0c40-41d1-b57e-1ff6b0bcc6b8/content/images/size/w1200/2025/05/Twitter-blue-sky-Meta-data-share-link-2-1.jpg", "icon": "https://renewal.org.uk/assets/images/Renewal-favicon-16x16.png?v=Ej51JxNoTHXZptSx"}, "img": "img/renewal.jpg", "avatar": "img/renewal-icon.png", "luma_url": null}, {"name": "Compass", "url": "https://compassonline.org.uk", "lean": "left", "group": "Ideas & policy", "blurb": "Soft-left pressure group for a more equal, democratic and sustainable society.", "tags": ["economy", "campaign"], "slug": "compass", "og": {"title": "Compass - Compass", "description": "Compass is the home for everyone who wants to be part of a much more equal, democratic and sustainable future.", "image": "https://www.compassonline.org.uk/wp-content/uploads/2019/12/FB_Link_Share_Image.png", "icon": "https://www.compassonline.org.uk/wp-content/themes/compass-2019/img/favicon.png"}, "img": "img/compass.png", "avatar": "img/compass-icon.png", "luma_url": null}, {"name": "Labour YIMBY", "url": "https://www.eventbrite.co.uk/o/labour-yimby-90820311923", "lean": "left", "group": "Movements & community", "blurb": "Labour members campaigning for more homes, with receptions and rallies through the year.", "tags": ["housing", "campaign", "runs events"], "slug": "labour-yimby", "og": {"title": "Labour YIMBY", "description": "Labour YIMBY", "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F835513859%2F161763540469%2F1%2Foriginal.20240827-203122?w=2000&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C885%2C885&s=099bfca9c9d51d071ff602acafe74d26", "icon": "https://cdn.evbstatic.com/s3-build/perm_001/8730ae/django/images/touch_icons/apple-touch-icon-180x180.png"}, "img": "img/labour-yimby.jpg", "avatar": "img/labour-yimby-icon.png", "luma_url": null}, {"name": "Labour Climate & Environment Forum", "url": "https://lcef.co.uk", "lean": "left", "group": "Ideas & policy", "luma": "cal-7Ox3adDI3f3dkBO", "blurb": "Labour's climate group, pushing clean power and green industry inside the party.", "tags": ["energy", "campaign", "runs events"], "slug": "labour-climate-environment-forum", "og": {"title": "Labour Climate and Environment Forum", "description": "", "image": null, "icon": "https://lcef.co.uk/apple-touch-icon.png"}, "img": "img/labour-climate-environment-forum.jpg", "avatar": "img/labour-climate-environment-forum-icon.jpg", "luma_url": "https://luma.com/lceflab25"}, {"name": "Institute for Government", "url": "https://instituteforgovernment.org.uk", "lean": "nonpartisan", "group": "Ideas & policy", "blurb": "Nonpartisan research on making government and the civil service work better.", "tags": ["state capacity", "think tank", "runs events"], "slug": "institute-for-government", "og": {"title": "Institute for Government", "description": "", "image": "https://www.instituteforgovernment.org.uk/themes/custom/ifg/assets/img/fallback-default.png", "icon": "https://www.instituteforgovernment.org.uk/themes/custom/ifg/assets/favicon/apple-icon-57x57.png"}, "img": "img/institute-for-government.png", "avatar": "img/institute-for-government-icon.png", "luma_url": null}, {"name": "Demos", "url": "https://demos.co.uk", "lean": "nonpartisan", "group": "Ideas & policy", "blurb": "Cross-party think tank on democracy, public services and the social contract.", "tags": ["state capacity", "think tank"], "slug": "demos", "og": {"title": "Demos", "description": "Demos is Britain’s leading cross-party think-tank. We produce original research, publish innovative thinkers and host thought-provoking events.", "image": "https://demos.co.uk/wp-content/themes/demos/assets/images/og-img.png", "icon": "https://demos.co.uk/wp-content/themes/demos/assets/images/apple-touch-icon.png"}, "img": "img/demos.png", "avatar": "img/demos-icon.png", "luma_url": null}, {"name": "Social Market Foundation", "url": "https://smf.co.uk", "lean": "nonpartisan", "group": "Ideas & policy", "blurb": "Cross-party think tank on markets that work for people: housing, energy, pensions.", "tags": ["economy", "housing", "think tank"], "slug": "social-market-foundation", "og": {"title": "The Social Market Foundation | Britain’s Leading Cross-Party Think-Tank", "description": "We bring together people of all parties and none, to develop evidence-based policies that support a fair society and a strong economy.", "image": "https://www.smf.co.uk/wp-content/uploads/2020/05/smf-og-image.png", "icon": "https://www.smf.co.uk/wp-content/uploads/2026/08/SMF-Fav.jpg"}, "img": "img/social-market-foundation.png", "avatar": "img/social-market-foundation-icon.jpg", "luma_url": null}, {"name": "Centre for London", "url": "https://centreforlondon.org", "lean": "nonpartisan", "group": "Ideas & policy", "blurb": "London's think tank, on housing, transport and how the city is run.", "tags": ["cities", "housing", "think tank", "runs events"], "slug": "centre-for-london", "og": {"title": "Centre for London", "description": "Centre for London finds new solutions to the capital’s challenges. We publish research. We hold events. We collaborate and influence.", "image": "https://centreforlondon.org/wp-content/uploads/2023/04/CFL-PRESS-animation1-1200x450.gif", "icon": "https://centreforlondon.org/wp-content/themes/cfl-update/favicon/apple-touch-icon.png"}, "img": "img/centre-for-london.gif", "avatar": "img/centre-for-london-icon.png", "luma_url": null}, {"name": "The London Society", "url": "https://londonsociety.org.uk", "lean": "nonpartisan", "group": "Science & culture", "blurb": "Civic society for the future shape of London: talks, walks and debates.", "tags": ["cities", "culture", "community", "runs events"], "slug": "the-london-society", "og": {}, "img": "img/the-london-society.jpg", "avatar": null, "luma_url": null}, {"name": "PricedOut", "url": "https://pricedout.org.uk", "lean": "nonpartisan", "group": "Movements & community", "blurb": "Campaign for affordable homes for younger generations, mainly by building more of them.", "tags": ["housing", "campaign"], "slug": "pricedout", "og": {"title": "PricedOut — Britain's campaign for housing affordability", "description": "Britain's campaign for housing affordability. In 1997, 88% of Britain could afford a home. Today it's 7%.", "image": "https://www.pricedout.org.uk/images/hero.jpg", "icon": "https://www.pricedout.org.uk/icon.png?icon.040keqebso_ii.png"}, "img": "img/pricedout.jpg", "avatar": "img/pricedout-icon.png", "luma_url": null}, {"name": "Newspeak House", "url": "https://newspeak.house", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-WGvTrmNL8OxL5Tw", "blurb": "Shoreditch home for political technologists, with a residency and open evenings.", "tags": ["state capacity", "community", "runs events"], "slug": "newspeak-house", "og": {"title": "Newspeak House", "description": "The London College of Political Technology", "image": "https://newspeak.house/assets/lcpt-roundel-social-card-c0854c7b8029d576ce52f59b347cbbc86fbbfd1696a85193404bc42f481bdb89.jpg", "icon": "https://newspeak.house/assets/favicon-804831c998fb41c20a74f95a21284e24e2fabd37c04f5b3ffb5e7ca9b7f8b044.ico"}, "img": "img/newspeak-house.jpg", "avatar": "img/newspeak-house-icon.png", "luma_url": "https://luma.com/newspeak-house"}, {"name": "TxP", "url": "https://luma.com/txp_io", "lean": "nonpartisan", "group": "Science & culture", "luma": "cal-SE4VBEDqU1pL24m", "blurb": "Technology x Policy: London meetups for people building and governing new tech.", "tags": ["science", "state capacity", "community", "runs events"], "slug": "txp", "og": {"title": "TxP · Events Calendar", "description": "View and follow events from TxP on Luma. ", "image": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1200,height=630/calendar?calendar_avatar_url=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Fcommunity_avatar_2.png&calendar_geo_city=London&calendar_name=TxP&calendar_tint_color=%23131517", "icon": "https://luma.com/apple-touch-icon.png"}, "img": "img/txp.jpg", "avatar": "img/txp-icon.png", "luma_url": "https://luma.com/txp_io"}, {"name": "Future: UK", "url": "https://futurelondon.org", "lean": "nonpartisan", "group": "Science & culture", "luma": "cal-eP031AKL1RBuO3j", "blurb": "Gatherings for people who want an ambitious, building, high-tech Britain.", "tags": ["science", "community", "runs events"], "slug": "future-uk", "og": {"title": "Future London", "description": "Season One: How do we fix the UK?\n      Just F***ing Build Something.\n      A community of high-agency techno-optimists.", "image": "https://futurelondon.org/images/social-banner.png", "icon": "https://futurelondon.org/images/favicon/apple-touch-icon.png"}, "img": "img/future-uk.jpg", "avatar": "img/future-uk-icon.jpg", "luma_url": "https://luma.com/ldn"}, {"name": "Londonmaxxing", "url": "https://londonmaxxing.com", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-BPEgptYSXJ6bqy3", "blurb": "Community making London a better city to live in, with regular socials and walks.", "tags": ["cities", "community", "runs events"], "slug": "londonmaxxing", "og": {"title": "Londonmaxxing: Optimism for building & living in London", "description": "Curated interviews, events & hidden gems from the people building in London. Join 1,200+ Londoners on the list.", "image": "https://storage.googleapis.com/gpt-engineer-file-uploads/RCTzDjtriMf0IYoya2ury1xHysS2/social-images/social-1776962980993-Londonmaxxing_OG.webp", "icon": "https://londonmaxxing.com/favicon.ico"}, "img": "img/londonmaxxing.webp", "avatar": "img/londonmaxxing-icon.png", "luma_url": "https://luma.com/londonmaxxing"}, {"name": "Knowledge Quarter", "url": "https://knowledgequarter.london", "lean": "nonpartisan", "group": "Science & culture", "luma": "cal-9BC46CcbhZPajam", "blurb": "Partnership of 100+ science, culture and research bodies around King's Cross, behind the Future London talks.", "tags": ["science", "cities", "community", "runs events"], "slug": "knowledge-quarter", "og": {"title": "Knowledge Quarter – King's Cross, St. Pancras, Euston, Bloomsbury", "description": "", "image": null, "icon": "https://www.knowledgequarter.london/wp-content/uploads/2014/10/kq-favicon1.png"}, "img": "img/knowledge-quarter.jpg", "avatar": "img/knowledge-quarter-icon.jpg", "luma_url": "https://luma.com/knowledgequarter"}, {"name": "Abundance London", "url": "https://luma.com/abundance", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-jePkEWbp9h3docL", "blurb": "Pub drinks for people who want more homes, energy and growth in London.", "tags": ["housing", "community", "runs events"], "slug": "abundance-london", "og": {"title": "Future of London · Events Calendar", "description": "View and follow events from Future of London on Luma. On creating the brightest possible future for our city on the world stage- making London the most energetic home for work on transformative projects.", "image": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1200,height=630/calendar?calendar_avatar_url=https%3A%2F%2Fimages.lumacdn.com%2Fcalendars%2F99%2F4dd11056-4e54-44ab-b9ec-c5b4df0e5b43.jpg&calendar_name=Future%20of%20London&calendar_tint_color=%233CBD2C", "icon": "https://luma.com/apple-touch-icon.png"}, "img": "img/abundance-london.jpg", "avatar": "img/abundance-london-icon.jpg", "luma_url": "https://luma.com/abundance"}, {"name": "The Entrepreneurs Network", "url": "https://tenentrepreneurs.org", "lean": "nonpartisan", "group": "Ideas & policy", "luma": "cal-NqImbyjM45jF6ak", "blurb": "Think tank on making Britain the best place to start and grow a business.", "tags": ["economy", "think tank", "runs events"], "slug": "the-entrepreneurs-network", "og": {"title": "The Entrepreneurs Network — UK think tank for entrepreneurs", "description": "The think tank for Britain’s most ambitious entrepreneurs. Research, events and campaigns to make the UK the best place to start and grow a business.", "image": "http://static1.squarespace.com/static/58ed40453a04116f46e8d99b/t/5a4d0e80e4966bb3083c91b5/1514999427803/TENfavicon-min.png?format=1500w", "icon": "https://images.squarespace-cdn.com/content/v1/58ed40453a04116f46e8d99b/1514999406024-JXLHINBJ4JNPASAYFN9A/favicon.ico?format=100w"}, "img": "img/the-entrepreneurs-network.png", "avatar": "img/the-entrepreneurs-network-icon.png", "luma_url": "https://luma.com/entrepreneursnetwork"}, {"name": "Policy Exchange", "url": "https://policyexchange.org.uk", "lean": "right", "group": "Ideas & policy", "blurb": "Centre-right think tank, influential on housing, energy and the state.", "tags": ["housing", "energy", "think tank", "runs events"], "slug": "policy-exchange", "og": {}, "img": "img/policy-exchange.jpg", "avatar": null, "luma_url": null}, {"name": "Centre for Policy Studies", "url": "https://cps.org.uk", "lean": "right", "group": "Ideas & policy", "blurb": "Free-market think tank founded by Thatcher and Joseph, on tax, housing and growth.", "tags": ["economy", "housing", "think tank", "runs events"], "slug": "centre-for-policy-studies", "og": {"title": "The Centre for Policy Studies", "description": "The Centre for Policy Studies is one of the oldest and most influential think tanks in Westminster. With a focus on taxation, economic growth, housing, immigration, and energy abundance, its goal is to develop policies that widen enterprise, ownership and opportunity. %", "image": null, "icon": "https://cps.org.uk/wp-content/uploads/2021/07/cropped-favicon-180x180.png"}, "img": "img/centre-for-policy-studies.jpg", "avatar": "img/centre-for-policy-studies-icon.png", "luma_url": null}, {"name": "Institute of Economic Affairs", "url": "https://iea.org.uk", "lean": "right", "group": "Ideas & policy", "blurb": "Britain's oldest free-market think tank.", "tags": ["economy", "think tank", "runs events"], "slug": "institute-of-economic-affairs", "og": {"title": "IEA", "description": "The Institute of Economic Affairs (IEA) is an educational charity and a UK-based free-market think tank promoting free thought.", "image": "https://iea.org.uk/wp-content/uploads/2022/06/placeholder.jpg", "icon": "https://iea.org.uk/wp-content/uploads/2025/03/cropped-New-Social-Logo-1-180x180.png"}, "img": "img/institute-of-economic-affairs.jpg", "avatar": "img/institute-of-economic-affairs-icon.png", "luma_url": null}, {"name": "London Calling", "url": "https://londoncalling.guide", "lean": "nonpartisan", "group": "Movements & community", "luma": "cal-2z1hnHaEqoXRsNr", "blurb": "A starter pack for London's builders: tech events, spaces and people worth knowing.", "tags": ["cities", "science", "community", "runs events"], "slug": "london-calling", "og": {"title": "london calling", "description": "London tech events, spaces, and more", "image": null, "icon": "https://www.londoncalling.guide/icon.png?icon.720b877a.png"}, "img": "img/london-calling.jpg", "avatar": "img/london-calling-icon.jpg", "luma_url": "https://luma.com/ldn-calling"}, {"name": "Deep Tech London", "url": "https://deeptech.london", "lean": "nonpartisan", "group": "Science & culture", "luma": "cal-zDVR851q25N1HwR", "blurb": "October festival week for people building science and industrial tech in the UK, with a summit in Shoreditch.", "tags": ["science", "community", "runs events"], "slug": "deep-tech-london", "og": {"title": "Deep Tech London — Summit, 8 October 2026", "description": "The Deep Tech London Summit: 500 founders, engineers, scientists and investors in Shoreditch on 8 October 2026 — the headline day of a city-wide festival running 5–11 October.", "image": "https://deeptech.london/opengraph-image.png?opengraph-image.b3958605.png", "icon": "https://www.deeptech.london/apple-icon.png?apple-icon.2007b89b.png"}, "img": "img/deep-tech-london.jpg", "avatar": "img/deep-tech-london-icon.jpg", "luma_url": "https://luma.com/deeptechldn"}];
+
+const FILTERS = [
+  ["Topic", ["housing", "energy", "science", "cities", "economy", "infrastructure", "state capacity", "culture"]],
+  ["Kind", ["think tank", "campaign", "community", "publication", "funder", "runs events"]],
+  ["Lean", ["left", "right", "nonpartisan"]],
+];
+const SECTIONS = ["Movements & community", "Ideas & policy", "Science & culture"];
+const LEANS = new Set(FILTERS[2][1]);
+const leanClass = t => ({ left: "left", right: "right" }[t] || "");
+const cap = s => s[0].toUpperCase() + s.slice(1);
+
+const el = (tag, attrs = {}, ...kids) => {
+  const n = Object.assign(document.createElement(tag), attrs);
+  kids.flat().forEach(k => n.append(k));
+  return n;
+};
+const domain = u => new URL(u).hostname.replace(/^www\./, "");
+const store = {
+  get: (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+};
+
+const state = { q: "", tags: new Set(), view: store.get("fop-view", "cards"), sort: store.get("fop-sort", "group"), size: +store.get("fop-size2", 40) };
+const tagsOf = o => [o.lean, ...o.tags].filter(Boolean);
+
+const tagButton = (t, extra = "") => {
+  const b = el("button", { className: "tag " + extra, type: "button", textContent: t, title: LEANS.has(t) ? "Political lean: filter by " + t : "Filter by " + t });
+  if (LEANS.has(t)) b.prepend(el("span", { className: "dot " + leanClass(t) }));
+  b.setAttribute("aria-pressed", state.tags.has(t));
+  b.onclick = e => { e.preventDefault(); toggle(t); };
+  return b;
+};
+const img = (cls, src, fit) => el("div", { className: cls + (fit === "contain" ? " contain" : "") }, el("img", { src, alt: "", loading: "lazy" }));
+const avatar = o => o.avatar ? img("avatar", o.avatar) : [];
+const title = o => el("h2", {}, el("a", { href: o.url, target: "_blank", rel: "noopener", textContent: o.name }));
+const links = o => el("div", { className: "links" },
+  el("a", { href: o.url, target: "_blank", rel: "noopener", textContent: domain(o.url) }),
+  o.luma_url ? el("a", { className: "luma", href: o.luma_url, target: "_blank", rel: "noopener", textContent: "Events on Luma ↗" }) : []);
+
+const card = o => el("article", { className: "card" },
+  el("div", { className: "figure" }, img("hero", o.img, o.fit), avatar(o), tagButton(o.lean, "lean")),
+  el("div", { className: "meta" }, title(o), links(o), el("p", { textContent: o.blurb }),
+    el("div", { className: "tags" }, o.tags.map(t => tagButton(t)))));
+
+const row = o => el("article", { className: "row" },
+  img("thumb", o.img, o.fit), avatar(o),
+  el("div", {}, title(o), links(o)),
+  el("p", { textContent: o.blurb }),
+  el("div", { className: "tags" }, tagButton(o.lean, "lean-inline"), o.tags.map(t => tagButton(t))));
+
+const haystack = o => [o.name, o.blurb, domain(o.url), o.group, ...tagsOf(o)].join(" ").toLowerCase();
+const matches = o => {
+  const h = haystack(o);
+  return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => h.includes(w))
+    && [...state.tags].every(t => tagsOf(o).includes(t));
+};
+const sections = shown => ({
+  az: [[null, shown]],
+  group: SECTIONS.map(s => [s, shown.filter(o => o.group === s)]),
+  lean: FILTERS[2][1].map(l => [cap(l), shown.filter(o => o.lean === l)]),
+})[state.sort].filter(([, os]) => os.length);
+
+// size 0–100 → card min width 200–460px; list preview 40–200px, below 15 = one-line rows
+function applySize(grid) {
+  const v = state.size, list = state.view === "list";
+  grid.style.setProperty("--card", 200 + v * 2.6 + "px");
+  grid.style.setProperty("--thumb", 40 + Math.max(0, v - 15) / 85 * 160 + "px");
+  grid.classList.toggle("dense", list && v < 15);
+}
+
+function render() {
+  const shown = ORGS.filter(matches), list = state.view === "list";
+  const grid = document.getElementById("grid");
+  grid.className = list ? "rows" : "grid";
+  applySize(grid);
+  document.querySelectorAll("[data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.view));
+  document.getElementById("sort").value = state.sort;
+  grid.replaceChildren(...(shown.length
+    ? sections(shown).flatMap(([name, os]) => [
+        ...(name ? [el("div", { className: "section-head" }, el("h3", { textContent: name }), el("span", { textContent: os.length }))] : []),
+        ...os.map(list ? row : card)])
+    : [el("div", { className: "empty", textContent: "No organisations match. Try fewer filters." })]));
+  document.getElementById("count").textContent = `${shown.length} of ${ORGS.length}`;
+  const used = new Set(ORGS.flatMap(tagsOf));
+  document.getElementById("filters").replaceChildren(...[FILTERS[2], FILTERS[0], FILTERS[1]].map(([label, tags]) =>
+    el("div", { className: "group", role: "group", ariaLabel: label },
+      tags.filter(t => used.has(t)).map(t => tagButton(t)))),
+    ...(state.tags.size || state.q ? [el("button", { className: "clear", type: "button", textContent: "Clear", onclick: clear })] : []));
+}
+function toggle(t) { state.tags.has(t) ? state.tags.delete(t) : state.tags.add(t); render(); }
+function clear() { state.tags.clear(); state.q = ""; document.getElementById("q").value = ""; render(); }
+const set = (k, key, v) => { state[k] = v; store.set(key, v); render(); };
+
+document.getElementById("q").addEventListener("input", e => { state.q = e.target.value; render(); });
+document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => set("view", "fop-view", b.dataset.view));
+document.getElementById("sort").onchange = e => set("sort", "fop-sort", e.target.value);
+document.getElementById("copy").onclick = async e => {
+  const b = e.currentTarget;
+  try { await navigator.clipboard.writeText(document.getElementById("email").textContent); b.textContent = "Copied"; }
+  catch { getSelection().selectAllChildren(document.getElementById("email")); b.textContent = "Selected"; }
+  setTimeout(() => b.textContent = "Copy", 1600);
+};
+const size = document.getElementById("size");
+size.value = state.size;
+size.addEventListener("input", () => { state.size = +size.value; store.set("fop-size2", state.size); applySize(document.getElementById("grid")); });
+ORGS.sort((a, b) => a.name.localeCompare(b.name));
+render();
+</script>
