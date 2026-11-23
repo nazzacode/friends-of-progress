@@ -8,3 +8,5 @@ Live: https://nazzacode.github.io/friends-of-progress/ (GitHub Pages, repo nazza
 Add an org: append a line to `orgs.json` → `python3 build.py` → `git commit -am … && git push` (Pages redeploys ~30s).
 `share.jpg` = OG preview (1200×630 Chrome screenshot of index.html); regenerate by hand if the top changes.
 Local preview: `python3 -m http.server -d directory` (launch.json `directory`).
+
+**Inclusion rule = progress-pilled** (Nathan, 2026-11-23): building/growth/science/tech is THE main thing. Lean irrelevant; generic left/right/civic/wonk ≠ enough. Vibe > checklist. Cut: Fabian, Compass, IPPR, Demos, Renewal, Labour Together, Progressive Britain, SMF, London Society, TBI, Roots of Progress (US). Kept on purpose: IEA, Resolution Foundation, Common Wealth.
