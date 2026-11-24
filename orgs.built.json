@@ -790,5 +790,47 @@
   "img": "img/deep-tech-london.jpg",
   "avatar": "img/deep-tech-london-icon.jpg",
   "luma_url": "https://luma.com/deeptechldn"
+ },
+ {
+  "name": "Labour Together",
+  "url": "https://labourtogether.uk",
+  "lean": "left",
+  "group": "Ideas & policy",
+  "blurb": "Think tank close to the Labour leadership on how Labour governs; its ThinkLabs talks take on state capacity and defence readiness.",
+  "tags": [
+   "state capacity",
+   "economy",
+   "think tank",
+   "runs events"
+  ],
+  "slug": "labour-together",
+  "og": {
+   "title": "ThinkLabour",
+   "description": "ThinkLabour is a think tank working at the heart of British politics to support the Labour movement with research, strategy, and policy development.",
+   "image": "https://cms.thinklabour.co.uk/assets/cf022c93-d260-45f5-8b2f-b044a70573b9.jpg?v=1778359225000&width=1200&quality=60&aspect_ratio=40:21",
+   "icon": "https://thinklabour.co.uk/fav/apple-touch-icon.png"
+  },
+  "img": "img/labour-together.jpg",
+  "avatar": null,
+  "luma_url": null
+ },
+ {
+  "name": "The London Society",
+  "url": "https://londonsociety.org.uk",
+  "lean": "nonpartisan",
+  "group": "Science & culture",
+  "blurb": "Civic society for the future shape of London: tours of new council housing, talks with architects, debates on infrastructure.",
+  "tags": [
+   "cities",
+   "housing",
+   "culture",
+   "community",
+   "runs events"
+  ],
+  "slug": "the-london-society",
+  "og": {},
+  "img": "img/the-london-society.jpg",
+  "avatar": null,
+  "luma_url": null
  }
 ]

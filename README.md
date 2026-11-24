@@ -9,4 +9,4 @@ Add an org: append a line to `orgs.json` → `python3 build.py` → `git commit 
 `share.jpg` = OG preview (1200×630 Chrome screenshot of index.html); regenerate by hand if the top changes.
 Local preview: `python3 -m http.server -d directory` (launch.json `directory`).
 
-**Inclusion rule = progress-pilled** (Nathan, 2026-11-23): building/growth/science/tech is THE main thing. Lean irrelevant; generic left/right/civic/wonk ≠ enough. Vibe > checklist. Cut: Fabian, Compass, IPPR, Demos, Renewal, Labour Together, Progressive Britain, SMF, London Society, TBI, Roots of Progress (US). Kept on purpose: IEA, Resolution Foundation, Common Wealth.
+**Inclusion rule = progress-pilled** (Nathan, 2026-11-23): building/growth/science/tech is THE main thing. Lean irrelevant; generic left/right/civic/wonk ≠ enough. Vibe > checklist. Also counts: state capacity / "serious-pilled" (defence readiness, competent state), pro-building civic; on-theme events → org in. Cut: Fabian, Compass, IPPR, Demos, Renewal, Progressive Britain, SMF, TBI, Roots of Progress (US). Kept on purpose: IEA, Resolution Foundation, Common Wealth; London Society + Labour Together re-added 2026-11-24.
