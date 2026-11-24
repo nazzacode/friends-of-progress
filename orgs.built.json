@@ -712,12 +712,7 @@
    "runs events"
   ],
   "slug": "centre-for-policy-studies",
-  "og": {
-   "title": "The Centre for Policy Studies",
-   "description": "The Centre for Policy Studies is one of the oldest and most influential think tanks in Westminster. With a focus on taxation, economic growth, housing, immigration, and energy abundance, its goal is to develop policies that widen enterprise, ownership and opportunity. %",
-   "image": null,
-   "icon": "https://cps.org.uk/wp-content/uploads/2021/07/cropped-favicon-180x180.png"
-  },
+  "og": {},
   "img": "img/centre-for-policy-studies.jpg",
   "avatar": "img/centre-for-policy-studies-icon.png",
   "luma_url": null
@@ -831,6 +826,29 @@
   "og": {},
   "img": "img/the-london-society.jpg",
   "avatar": null,
+  "luma_url": null
+ },
+ {
+  "name": "Forest City",
+  "url": "https://www.forestcity.uk",
+  "lean": "nonpartisan",
+  "group": "Movements & community",
+  "blurb": "Plan for Britain's first new city in 50 years, east of Cambridge: 400k homes ringed by new forest. Events via Future: UK.",
+  "tags": [
+   "housing",
+   "cities",
+   "infrastructure",
+   "campaign"
+  ],
+  "slug": "forest-city",
+  "og": {
+   "title": "Forest City 1: The New City Planned Between Cambridge and Haverhill, Suffolk",
+   "description": "Forest City 1 (FC1) is the plan for Britain's first new city in over 50 years — in Suffolk, east of Cambridge, next to Haverhill. Beautiful, permanently affordable homes at scale.",
+   "image": "https://www.forestcity.uk/banner.png",
+   "icon": "https://www.forestcity.uk/favicon.ico"
+  },
+  "img": "img/forest-city.jpg",
+  "avatar": "img/forest-city-icon.ico",
   "luma_url": null
  }
 ]
