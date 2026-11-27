@@ -238,12 +238,7 @@
    "runs events"
   ],
   "slug": "adam-smith-institute",
-  "og": {
-   "title": "Adam Smith Institute | Free Market Think Tank",
-   "description": "The Adam Smith Institute is a leading global economic policy think tank, ranked the UK's top domestic and international economic policy institute and 2nd worldwide among Independent Think Tanks by the University of Pennsylvania.",
-   "image": "http://static1.squarespace.com/static/56eddde762cd9413e151ac92/t/5fcd780b978da30c561357a9/1607301135798/ASI-logo-social.png?format=1500w",
-   "icon": "https://images.squarespace-cdn.com/content/v1/56eddde762cd9413e151ac92/3b515a50-ebb6-442f-903c-f6a31f7bf6d3/favicon.ico"
-  },
+  "og": {},
   "img": "img/adam-smith-institute.png",
   "avatar": "img/adam-smith-institute-icon.png",
   "luma_url": "https://luma.com/adamsmithinstituteevents"
@@ -488,10 +483,10 @@
   ],
   "slug": "centre-for-london",
   "og": {
-   "title": "Centre for London",
-   "description": "Centre for London finds new solutions to the capital’s challenges. We publish research. We hold events. We collaborate and influence.",
-   "image": "https://centreforlondon.org/wp-content/uploads/2023/04/CFL-PRESS-animation1-1200x450.gif",
-   "icon": "https://centreforlondon.org/wp-content/themes/cfl-update/favicon/apple-touch-icon.png"
+   "title": "One moment, please...",
+   "description": "",
+   "image": null,
+   "icon": "data:,"
   },
   "img": "img/centre-for-london.gif",
   "avatar": "img/centre-for-london-icon.png",
@@ -564,6 +559,28 @@
   "img": "img/txp.png",
   "avatar": "img/txp-icon.png",
   "luma_url": "https://luma.com/txp_io"
+ },
+ {
+  "name": "Civic Future",
+  "url": "https://civicfuture.org",
+  "lean": "nonpartisan",
+  "group": "Ideas & policy",
+  "blurb": "Charity that finds and trains talented people to enter public life and get the state working again: talent programmes, a School for Government, and public debates on stagnation and statecraft.",
+  "tags": [
+   "state capacity",
+   "community",
+   "runs events"
+  ],
+  "slug": "civic-future",
+  "og": {
+   "title": "Home - Civic Future",
+   "description": "Sign up to our mailing list",
+   "image": "https://civicfuture.org/wp-content/uploads/2025/02/civicfuturesquarelogo2-1.png",
+   "icon": "https://civicfuture.org/wp-content/uploads/2025/02/favicon.png"
+  },
+  "img": "img/civic-future.jpg",
+  "avatar": "img/civic-future-icon.png",
+  "luma_url": null
  },
  {
   "name": "Future: UK",
@@ -694,7 +711,12 @@
    "runs events"
   ],
   "slug": "policy-exchange",
-  "og": {},
+  "og": {
+   "title": "",
+   "description": "",
+   "image": null,
+   "icon": "data:;"
+  },
   "img": "img/policy-exchange.jpg",
   "avatar": null,
   "luma_url": null
@@ -712,7 +734,12 @@
    "runs events"
   ],
   "slug": "centre-for-policy-studies",
-  "og": {},
+  "og": {
+   "title": "The Centre for Policy Studies",
+   "description": "The Centre for Policy Studies is one of the oldest and most influential think tanks in Westminster. With a focus on taxation, economic growth, housing, immigration, and energy abundance, its goal is to develop policies that widen enterprise, ownership and opportunity. %",
+   "image": null,
+   "icon": "https://cps.org.uk/wp-content/uploads/2021/07/cropped-favicon-180x180.png"
+  },
   "img": "img/centre-for-policy-studies.jpg",
   "avatar": "img/centre-for-policy-studies-icon.png",
   "luma_url": null
@@ -823,7 +850,12 @@
    "runs events"
   ],
   "slug": "the-london-society",
-  "og": {},
+  "og": {
+   "title": "",
+   "description": "",
+   "image": null,
+   "icon": "data:;"
+  },
   "img": "img/the-london-society.jpg",
   "avatar": null,
   "luma_url": null
